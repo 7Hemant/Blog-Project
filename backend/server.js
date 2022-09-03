@@ -4,6 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv").config();
 //import files
 const AuthRoute = require("./routes/AuthRoutes");
+const BlogRoute = require("./routes/BlogRoutes");
 const ConnectedDB = require("./config/db");
 const { errorHandler } = require("./middleware/errorMiddleware");
 const app = express();
@@ -11,5 +12,6 @@ app.use(bodypaser.json());
 app.use(cors());
 
 app.use("/api/v1/blog", AuthRoute);
+app.use("/api/v1/blog", BlogRoute);
 app.use("/api/v1/blog", errorHandler);
 ConnectedDB().then(() => app.listen(process.env.PORT));
