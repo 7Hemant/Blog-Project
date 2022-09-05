@@ -6,16 +6,17 @@ const {
   updateUserBlogPost,
   deleteUserBlogPost,
 } = require("../controllers/blogPostController");
+const { protect } = require("../middleware/ProtectRoute");
 const BlogRoute = express.Router();
 
 //create post
-BlogRoute.post("/create", createBlogPost);
+BlogRoute.post("/create", [protect], createBlogPost);
 //get all post
 BlogRoute.get("/allpost", getAllBlogPost);
 //get post for only particular user
-BlogRoute.get("/userpost", getUserBlogPost);
+BlogRoute.get("/userpost", [protect], getUserBlogPost);
 //update post
-BlogRoute.post("/update/:id", updateUserBlogPost);
+BlogRoute.patch("/update/:id", [protect], updateUserBlogPost);
 //delete post
-BlogRoute.post("/delete/:id", deleteUserBlogPost);
+BlogRoute.delete("/delete/:id", [protect], deleteUserBlogPost);
 module.exports = BlogRoute;
