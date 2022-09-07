@@ -18,7 +18,7 @@ exports.createBlogPost = asynchandler(async (req, res) => {
 });
 exports.getAllBlogPost = asynchandler(async (req, res) => {
   const Blogpost = await BlogPost.find();
-  console.log("errer");
+
   res.status(200).json({
     status: "success",
     Blogpost,

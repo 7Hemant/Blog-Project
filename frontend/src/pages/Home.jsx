@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 const Home = () => {
   const [data, setData] = useState([]);
   const fetchFunc = async () => {
@@ -23,9 +22,9 @@ const Home = () => {
   console.log(data);
   useEffect(() => {
     fetchFunc();
-  }, fetchFunc);
+  }, []);
   return (
-    <div className="mt-[7rem] flex flex-col  items-center ">
+    <div className="mt-[6rem] flex flex-col  items-center ">
       {data.map((post, index) => (
         <div className="border rounded w-3/4   p-4 m-4 shadow" key={index}>
           <div className="img">

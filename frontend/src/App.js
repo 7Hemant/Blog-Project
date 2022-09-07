@@ -5,7 +5,7 @@ function App() {
   return (
     <div>
       <Header />
-      {/* <Router /> */}
+      <Router />
     </div>
   );
 }
