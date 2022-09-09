@@ -22,19 +22,25 @@ const Header = () => {
       </div>
       <nav className="relative ">
         <ul
-          className={`  ${value}  absolute right-[-2rem] top-10 bg-red-200  flex-col justify-center items-center border  h-[90vh] w-[100vw] sm:flex-row sm:flex sm:static sm:border-none sm:h-max sm:w-max sm:bg-inherit overflow-hidden`}
+          className={`${value}  absolute right-[-2rem] top-10 bg-red-200  flex-col justify-center items-center border  h-[90vh] w-[100vw] sm:flex-row sm:flex sm:static sm:border-none sm:h-max sm:w-max sm:bg-inherit overflow-hidden`}
         >
           <li className="px-1 hover:text-red-500 cursor-pointer">
             <Link to="/">Home</Link>
           </li>
 
           {user ? (
-            <button
-              className="px-1 hover:text-red-500 cursor-pointer"
-              onClick={logoutHandler}
-            >
-              Logout
-            </button>
+            <>
+              <li>
+                <Link to="/create-post">CreatePost</Link>
+              </li>
+              <li>My post</li>
+              <button
+                className="px-1 hover:text-red-500 cursor-pointer"
+                onClick={logoutHandler}
+              >
+                Logout
+              </button>
+            </>
           ) : (
             <li className="px-1 hover:text-red-500 cursor-pointer">
               <Link to="/auth">Auth</Link>

@@ -2,26 +2,28 @@ const asynchandler = require("express-async-handler");
 const BlogPost = require("../modules/BlogPost");
 
 exports.createBlogPost = asynchandler(async (req, res) => {
-  const { author, description, image, title } = req.body;
+  const { author, description, title } = req.body;
 
+  console.log(req.body);
+  console.log("error", author, description, title);
   const createdPost = await BlogPost.create({
     author,
     description,
-    image,
     title,
     user: req.user._id,
   });
+
   res.json({
     status: "success",
     post: createdPost,
   });
 });
 exports.getAllBlogPost = asynchandler(async (req, res) => {
-  const Blogpost = await BlogPost.find();
+  const Blogposts = await BlogPost.find();
 
   res.status(200).json({
     status: "success",
-    Blogpost,
+    Blogposts,
   });
 });
 //getUserBlogPost
@@ -31,7 +33,7 @@ exports.getUserBlogPost = asynchandler(async (req, res) => {
 });
 //updateUserBlogPost
 exports.updateUserBlogPost = asynchandler(async (req, res) => {
-  const { author, description, image, title } = req.body;
+  const { author, description, title } = req.body;
 
   const post = await BlogPost.findById(req.params.id);
 
@@ -58,7 +60,7 @@ exports.updateUserBlogPost = asynchandler(async (req, res) => {
     {
       author,
       description,
-      image,
+
       title,
     },
     { new: true }

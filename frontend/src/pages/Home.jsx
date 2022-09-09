@@ -6,7 +6,7 @@ const Home = () => {
       const res = await fetch("http://localhost:8080/api/v1/blog/allpost");
       const resdata = await res.json();
 
-      const transformData = resdata.Blogpost.map((tdata) => {
+      const transformData = resdata.Blogposts.map((tdata) => {
         return {
           title: tdata.title,
           description: tdata.description,
@@ -23,13 +23,18 @@ const Home = () => {
   useEffect(() => {
     fetchFunc();
   }, []);
+
+  if (data.length === 0) {
+    return (
+      <div className="mt-[6rem] flex flex-col-reverse items-center ">
+        <h1>loading</h1>
+      </div>
+    );
+  }
   return (
-    <div className="mt-[6rem] flex flex-col  items-center ">
+    <div className="mt-[6rem] flex flex-col-reverse items-center ">
       {data.map((post, index) => (
         <div className="border rounded w-3/4   p-4 m-4 shadow" key={index}>
-          <div className="img">
-            <img src={post.imageUrl} alt="image" />
-          </div>
           <h1>{post.title}</h1>
           <p>{post.description}</p>
           <h1>{post.author}</h1>

@@ -4,12 +4,14 @@ const API_URL = "http://localhost:8080/api/v1/blog/";
 //create post
 const createPost = async (postdata, token) => {
   const config = {
-    Headers: {
+    headers: {
       Authorization: `Bearer ${token}`,
     },
   };
+
   try {
     const resdata = await axios.post(API_URL + "create", postdata, config);
+
     console.log(resdata);
     return resdata;
   } catch (error) {
