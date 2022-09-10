@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { getpost, deletepost } from "../features/Blog/BlogSlice";
+import { getpost, deletepost, getSingalPost } from "../features/Blog/BlogSlice";
 
 const UserPost = () => {
   const { blog, isLoading } = useSelector((state) => state.blog);
@@ -11,9 +11,9 @@ const UserPost = () => {
   //update handler
   const updateHandler = (id) => {
     navigate("/update-post");
-    console.log(id);
+    dispatch(getSingalPost(id));
   };
-  console.log(blog);
+
   //delete post
   const delete_post = (id) => {
     dispatch(deletepost(id));

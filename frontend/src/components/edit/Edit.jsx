@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { createpost } from "../../features/Blog/BlogSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 const Edit = (props) => {
   const [title, setTitle] = useState("");
+  const { blog } = useSelector((state) => state.blog);
+  console.log(blog);
   const [description, setDescription] = useState("");
   const [author, setAuthor] = useState(" ");
   const navigate = useNavigate();
@@ -29,6 +32,9 @@ const Edit = (props) => {
       onSubmit={Formhandler}
       className="border flex flex-col justify-center items-center border-red-200 w-11/12 sm:w-6/12 shadow rounded-md"
     >
+      <fieldset>
+        <legend> {props.update ? "not working" : "Create"}</legend>
+      </fieldset>
       <div className="from-gorup flex items-center flex-col m-2 w-9/12">
         <label htmlFor="title">Title</label>
         <input

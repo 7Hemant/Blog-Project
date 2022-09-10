@@ -27,6 +27,18 @@ const getPost = async (token) => {
   return resdata;
 };
 
+//get user singal post
+const postID = async (id, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  console.log(id);
+  const resdata = await axios.get(API_URL + `userpost/${id}`, config);
+
+  return resdata;
+};
 //update only user post
 const updatePost = async (postid, postdata, token) => {
   const config = {
@@ -61,6 +73,7 @@ const deletePost = async (postid, token) => {
 const BlogService = {
   createPost,
   getPost,
+  postID,
   updatePost,
   deletePost,
 };

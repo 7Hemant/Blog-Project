@@ -55,6 +55,19 @@ export const deletepost = createAsyncThunk(
     }
   }
 );
+export const getSingalPost = createAsyncThunk(
+  "singal/post",
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      const res = await BlogService.postID(id, token);
+
+      return res.data.post;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 const blogSlice = createSlice({
   name: "blog",
   initialState,
@@ -92,7 +105,7 @@ const blogSlice = createSlice({
         state.message = action.payload;
       })
 
-      .addCase(updatepost.pending, (state, action) => {
+      .addCase(updatepost.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(updatepost.fulfilled, (state, action) => {
@@ -105,7 +118,7 @@ const blogSlice = createSlice({
         state.isLoading = false;
         state.message = action.payload;
       })
-      .addCase(deletepost.pending, (state, action) => {
+      .addCase(deletepost.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(deletepost.fulfilled, (state, action) => {
@@ -114,6 +127,19 @@ const blogSlice = createSlice({
         state.message = action.payload;
       })
       .addCase(deletepost.rejected, (state, action) => {
+        state.isError = true;
+        state.isLoading = false;
+        state.message = action.payload;
+      })
+      .addCase(getSingalPost.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getSingalPost.fulfilled, (state, action) => {
+        state.isSuccess = true;
+        state.isLoading = false;
+        state.message = action.payload;
+      })
+      .addCase(getSingalPost.rejected, (state, action) => {
         state.isError = true;
         state.isLoading = false;
         state.message = action.payload;

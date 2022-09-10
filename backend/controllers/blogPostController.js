@@ -66,7 +66,6 @@ exports.updateUserBlogPost = asynchandler(async (req, res) => {
     {
       author,
       description,
-
       title,
     },
     { new: true }
@@ -106,6 +105,7 @@ exports.deleteUserBlogPost = asynchandler(async (req, res) => {
 exports.singlePost = asynchandler(async (req, res) => {
   const id = req.params.id;
 
+  console.log(id);
   const post = await BlogPost.findById(id);
   if (!post) {
     res.status(400);

@@ -39,5 +39,5 @@ BlogRoute.patch(
 );
 //delete post
 BlogRoute.delete("/delete/:id", [protect], deleteUserBlogPost);
-BlogRoute.delete("/userpost/:id", [protect], singlePost);
+BlogRoute.get("/userpost/:id", [protect], singlePost);
 module.exports = BlogRoute;
