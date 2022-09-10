@@ -13,16 +13,22 @@ export const createpost = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await BlogService.createPost(data, token);
+
+      const res = await BlogService.createPost(data, token);
+
+      return res.data.post;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      console.log(error.response.data);
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
 export const getpost = createAsyncThunk("get/post", async (_, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.user.token;
-    return await BlogService.getPost(token);
+    const res = await BlogService.getPost(token);
+
+    return res.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
@@ -105,7 +111,7 @@ const blogSlice = createSlice({
       .addCase(deletepost.fulfilled, (state, action) => {
         state.isSuccess = true;
         state.isLoading = false;
-        state.blog = action.payload;
+        state.message = action.payload;
       })
       .addCase(deletepost.rejected, (state, action) => {
         state.isError = true;

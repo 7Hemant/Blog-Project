@@ -9,34 +9,28 @@ const createPost = async (postdata, token) => {
     },
   };
 
-  try {
-    const resdata = await axios.post(API_URL + "create", postdata, config);
+  const resdata = await axios.post(API_URL + "create", postdata, config);
 
-    console.log(resdata);
-    return resdata;
-  } catch (error) {
-    console.log("error");
-  }
+  return resdata;
 };
 
 //get only user post
 const getPost = async (token) => {
   const config = {
-    Headers: {
+    headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-  try {
-    const resdata = await axios.get(API_URL + "userpost", config);
-  } catch (error) {
-    console.log("error");
-  }
+
+  const resdata = await axios.get(API_URL + "userpost", config);
+
+  return resdata;
 };
 
 //update only user post
 const updatePost = async (postid, postdata, token) => {
   const config = {
-    Headers: {
+    headers: {
       Authorization: `Bearer ${token}`,
     },
   };
@@ -55,16 +49,13 @@ const updatePost = async (postid, postdata, token) => {
 //delete user Post only
 const deletePost = async (postid, token) => {
   const config = {
-    Headers: {
+    headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-  try {
-    const resdata = await axios.get(API_URL + `delete/${postid}`, config);
-    return resdata;
-  } catch (error) {
-    console.log("error");
-  }
+  console.log(postid);
+  const resdata = await axios.delete(API_URL + `delete/${postid}`, config);
+  return resdata.data;
 };
 
 const BlogService = {

@@ -1,26 +1,31 @@
 const asynchandler = require("express-async-handler");
+const { validationResult } = require("express-validator");
 const BlogPost = require("../modules/BlogPost");
 
 exports.createBlogPost = asynchandler(async (req, res) => {
+  const checkError = validationResult(req);
   const { author, description, title } = req.body;
 
-  console.log(req.body);
-  console.log("error", author, description, title);
-  const createdPost = await BlogPost.create({
-    author,
-    description,
-    title,
-    user: req.user._id,
-  });
+  if (!checkError.isEmpty()) {
+    res.status(401);
+    throw new Error("fill all the fields porperly");
+  } else {
+    const createdPost = await BlogPost.create({
+      author,
+      description,
+      title,
+      user: req.user._id,
+    });
 
-  res.json({
-    status: "success",
-    post: createdPost,
-  });
+    res.json({
+      status: "success",
+      post: createdPost,
+    });
+  }
 });
 exports.getAllBlogPost = asynchandler(async (req, res) => {
   const Blogposts = await BlogPost.find();
-
+  console.log(Blogposts);
   res.status(200).json({
     status: "success",
     Blogposts,
@@ -29,6 +34,7 @@ exports.getAllBlogPost = asynchandler(async (req, res) => {
 //getUserBlogPost
 exports.getUserBlogPost = asynchandler(async (req, res) => {
   const post = await BlogPost.find({ user: req.user.id });
+
   res.status(200).json(post);
 });
 //updateUserBlogPost

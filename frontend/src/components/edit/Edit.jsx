@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { createpost } from "../../features/Blog/BlogSlice";
 import { useDispatch } from "react-redux";
-const Edit = () => {
+const Edit = (props) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [author, setAuthor] = useState(" ");
   const dispatch = useDispatch();
+
   const Formhandler = (event) => {
     event.preventDefault(); // not working
     const data = {
@@ -54,7 +55,7 @@ const Edit = () => {
         />
       </div>
       <div className="from-gorup">
-        <button type="submit">create post</button>
+        <button type="submit">{props.update ? "update" : "create"}</button>
       </div>
     </form>
   );

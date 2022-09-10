@@ -33,7 +33,9 @@ const Header = () => {
               <li>
                 <Link to="/create-post">CreatePost</Link>
               </li>
-              <li>My post</li>
+              <li>
+                <Link to="user">user Posts</Link>
+              </li>
               <button
                 className="px-1 hover:text-red-500 cursor-pointer"
                 onClick={logoutHandler}
