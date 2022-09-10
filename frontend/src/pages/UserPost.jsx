@@ -1,36 +1,47 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { getpost, deletepost } from "../features/Blog/BlogSlice";
 
 const UserPost = () => {
-  const { blog } = useSelector((state) => state.blog);
+  const { blog, isLoading } = useSelector((state) => state.blog);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [value, setValue] = useState();
 
-  //get id
-  const id = (postid) => {
-    console.log(postid);
-    setValue(postid);
-  };
   //update handler
-  const updateHandler = () => {
-    // navigate("/update-post");
-    console.log(value);
+  const updateHandler = (id) => {
+    navigate("/update-post");
+    console.log(id);
   };
   console.log(blog);
   //delete post
-  const delete_post = () => {
-    console.log("click");
+  const delete_post = (id) => {
+    dispatch(deletepost(id));
+    navigate("/");
   };
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getpost());
   }, []);
-  if (blog.length === 0) {
+  if (isLoading) {
     return (
       <div className="mt-[6rem] flex flex-col-reverse items-center ">
         <h1>loading</h1>
+      </div>
+    );
+  }
+  if (blog.length === 0) {
+    return (
+      <div className="mt-[6rem] flex flex-col items-center ">
+        <h1>No post....</h1>
+        <h1>
+          Create your first post:
+          <Link
+            to="/create-post"
+            className="bg-blue-300 rounded-sm px-3 py-2 m-2"
+          >
+            create
+          </Link>
+        </h1>
       </div>
     );
   }
@@ -43,11 +54,11 @@ const UserPost = () => {
           <h1>{post.author}</h1>
           <button
             className="bg-blue-300 px-3 py-1 rounded "
-            onClick={updateHandler}
+            onClick={() => updateHandler(post._id)}
           >
             update
           </button>
-          <button onClick={delete_post}>delete </button>
+          <button onClick={() => delete_post(post._id)}>delete </button>
         </div>
       ))}
     </div>

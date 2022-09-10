@@ -60,7 +60,7 @@ exports.updateUserBlogPost = asynchandler(async (req, res) => {
     res.status(401);
     throw new Error("User not authorized");
   }
-
+  //update post
   const updatepost = await BlogPost.findByIdAndUpdate(
     req.params.id,
     {
@@ -99,4 +99,25 @@ exports.deleteUserBlogPost = asynchandler(async (req, res) => {
   }
   await post.remove();
   res.json({ id: post._id });
+});
+
+//get single post of user
+
+exports.singlePost = asynchandler(async (req, res) => {
+  const id = req.params.id;
+
+  const post = await BlogPost.findById(id);
+  if (!post) {
+    res.status(400);
+    throw new Error("post not found");
+  }
+  // Make sure the logged in user matches the goal user
+  if (post.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("User not authorized");
+  }
+  res.json({
+    status: "success",
+    post: post,
+  });
 });

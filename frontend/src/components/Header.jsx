@@ -30,10 +30,10 @@ const Header = () => {
 
           {user ? (
             <>
-              <li>
+              <li className="px-1 hover:text-red-500 cursor-pointer">
                 <Link to="/create-post">CreatePost</Link>
               </li>
-              <li>
+              <li className="px-1 hover:text-red-500 cursor-pointer">
                 <Link to="user">user Posts</Link>
               </li>
               <button
